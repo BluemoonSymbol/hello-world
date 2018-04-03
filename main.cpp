@@ -1,9 +1,6 @@
 #include "HelloWorld.h"
-
-int main()
-{
+int main() {
   HelloWorld hw;
   hw.hello();
   return 0;
 }
-
