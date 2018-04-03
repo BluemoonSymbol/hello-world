@@ -1,21 +1,90 @@
-/*满足下列条件的自然数称为超级素数:该数本身,所有数字之和,所有数字之积以及所有数字的平方和都是素数.例如113就是一个超级素数.求[100,9999]之内:(1)超级素数的个数.(2)所有超级素数之和.(3)最大的超级素数.*/
-int sum_bit(int num) {
-  return 0;
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+
+int sum_bit(int num)
+{
+	int sum=0;
+	while(1)
+	{
+		sum+=num%10;
+		num/=10;
+		if(!num)
+		{
+			break;
+		}
+	}
+	
+  return sum;
 }
 
-int multi_bit(int num) {
-  return 0;
+int multi_bit(int num) 
+{
+  int muti=1;
+	while(1)
+	{
+		muti*=num%10;
+		num/=10;
+		if(!num)
+		{
+			break;
+		}
+	}
+	
+  return muti;
 }
 
-int square_sum_bit(int num) {
-  return 0;
+int square_sum_bit(int num) 
+{
+  int sum=0;
+	while(1)
+	{
+		sum+=(num%10)*(num%10);
+		num/=10;
+		if(!num)
+		{
+			break;
+		}
+	}
+	
+  return sum;
 }
 
-bool isprime(int num) {
-  return false;
+int isprime(int num) 
+{
+	int i;
+	for(i=2;i<=sqrt(num);i++)
+	{
+		if(!(num%i))
+		{
+			
+			return 0;
+		}
+		
+	}
+	return 1;
+  
 }
 
-int main() {
-  if(isprime(113)&&isprime(sum_bit(113))&&isprime(multi_bit(113))&&isprime(square_sum_bit(113)))
-    //to do sth
+
+int main() 
+{
+	int i,j=0,sum=0,flag=0,count=0;;
+	for(i=9999;i>=100;i--)
+	{
+		if(isprime(i)&&isprime(sum_bit(i))&&isprime(multi_bit(i))&&isprime(square_sum_bit(i)))
+		  {
+		  	if(!flag)
+		  	{
+		  		printf("%d\n",i);
+		  		flag=1;
+			}
+		  	sum+=i;
+		  	count++;
+		  	
+		  }
+	}
+	printf("%d\n%d\n",sum,count);
+  
+    return 0;
 }
