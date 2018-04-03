@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node
+{
+	int data;
+	struct node* pnext;
+}Node;
+
+Node *link_creat(int n)//创建n个节点 循环链表
+{
+	//创建第一个节点
+	Node *p,*q,*head;
+	int i;
+	p = (Node*)malloc(sizeof(Node));
+	head = p;
+	p->data = 1;
+	//创建完毕
+	for(i=2;i<n+1;i++)
+	{
+		q = (Node *)malloc(sizeof(Node));
+		q->data = i;
+		p->pnext = q;
+		p = q;
+	 }
+	 p->pnext = head;//循环
+	 return head; 
+ }
+ 
+ void link_process(Node *head,int k,int m,int n)//k报数 m出列
+ {
+ 	int i;
+ 	Node *p = head, *temp_one;
+ 	while(p->data!=k) p = p->pnext;//此时p指向date为k的节点
+	//开始报数 即循环
+	int count = n-2;
+	int a[n+1],l=1;
+	for(l;l<=n;l++)
+	{
+		a[l] = l;
+	}
+	while(count)
+	{
+		for(i=0;i<m-1;i++)
+		{
+			temp_one = p;
+			p = p->pnext;
+		}
+		for(l=1;l<=n;l++)
+		{
+			if(a[l]==p->data)
+			{
+				a[l] = 0;
+			}
+		}
+		temp_one->pnext = p->pnext;
+		free(p);
+		p = temp_one->pnext;
+		count--;
+	 }
+	 for(l=1;l<=n;l++)
+	 {
+	 	if(a[l]!=0)
+	 	{
+	 		printf("%d ",a[l]);
+		 }
+	  } 
+  }
+  int main()
+  {
+  	int n,k,m;
+  	scanf("%d %d %d",&n,&k,&m);
+  	Node *head = link_creat(n);
+  	link_process(head,k,m,n);
+  	return 0;
+   }
